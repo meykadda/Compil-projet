@@ -39,6 +39,7 @@
     #define AND_OPPERATOR 34
     #define OR_OPPERATOR 35
     #define NOT_OPPERATOR 36
+    #define FOR 37
 
     extern int yylval;
 %}
@@ -67,6 +68,7 @@ FLOAT      ([0-9]+\.[0-9]+|\([+|-][0-9]+\.[0-9]+\))
 {INSTRUCTION}          { printf("instructions section detected\n"); return INSTRUCTION; }
 "if"                   { printf("IF keyword detected\n"); return IF; }
 "else"                 { printf("ELSE keyword detected\n"); return ELSE; }
+"FOR"                  { printf("FOR keyword detected\n"); return FOR; }
 ">="                   { printf("comparison operator detected: >=\n"); return GE; }
 "<="                   { printf("comparison operator detected: <=\n"); return LE; }
 ">"                    { printf("comparison operator detected: >\n"); return GT; }
