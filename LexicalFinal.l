@@ -40,6 +40,7 @@
     #define OR_OPPERATOR 35
     #define NOT_OPPERATOR 36
     #define FOR 37
+    #define COLON 38
 
     extern int yylval;
 %}
@@ -75,6 +76,7 @@ FLOAT      ([0-9]+\.[0-9]+|\([+|-][0-9]+\.[0-9]+\))
 "<"                    { printf("comparison operator detected: <\n"); return LT; }
 "=="                   { printf("comparison operator detected: ==\n"); return EQ; }
 "!="                   { printf("comparison operator detected: !=\n"); return NE; }
+":"                    { printf("colon detected: %s\n", yytext); return COLON; }
 {ID}                   { 
                             if(strlen(yytext) > 8) {
                                 printf("Error: identifier too long: %s\n", yytext);
