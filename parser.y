@@ -51,7 +51,7 @@ liste_idf:
     ;
 
 assignment:
-     ASSIGN_OP arithmetic_expression                                       { printf("VALID arithmetic operation assignment\n"); }
+     ASSIGN_OP arithmetic_expression                             { printf("VALID arithmetic operation assignment\n"); }
     |ASSIGN_OP CHAR                                              { printf("VALID assignment\n"); }
     ;
 
