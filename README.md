@@ -28,12 +28,12 @@ This project implements a simple compiler using Flex and Bison. Follow the instr
    gcc parser.tab.c lex.yy.c -o compiler   # Compile the C files into the executable
    compiler.exe < input.txt   # Execute the compiled program with input.txt
 
-```vbnet
+    ```vbnet
 
-In the example above:
-- The first code block (enclosed with triple backticks \`\`\`) is for the commands to run in the terminal.
-- After the block, a normal line of text is added, explaining the next step.
+    In the example above:
+    - The first code block (enclosed with triple backticks \`\`\`) is for the commands to run in the terminal.
+    - After the block, a normal line of text is added, explaining the next step.
 
-Markdown automatically treats everything outside the backtick-enclosed code blocks as normal text, so you can freely write instructions or descriptions after the code block. Just make sure to leave an empty line between the code block and the text for proper formatting.
+    Markdown automatically treats everything outside the backtick-enclosed code blocks as normal text, so you can freely write instructions or descriptions after the code block. Just make sure to leave an empty line between the code block and the text for proper formatting.
 
 
