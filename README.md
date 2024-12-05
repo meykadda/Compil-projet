@@ -17,10 +17,6 @@ This project implements a simple compiler using Flex and Bison. Follow the instr
    ```bash
    win_bison -d parser.y    # Generate the parser from Bison file
    win_flex lex.l           # Generate the scanner from Flex file
-   
-
-   
-   compiler.exe
 
 2. **Next, you need to compile the generated C files using gcc:**
 
@@ -28,7 +24,7 @@ This project implements a simple compiler using Flex and Bison. Follow the instr
    gcc parser.tab.c lex.yy.c -o compiler   # Compile the C files into the executable
    compiler.exe < input.txt   # Execute the compiled program with input.txt
 
-    ```vbnet
+```vbnet
 
     In the example above:
     - The first code block (enclosed with triple backticks \`\`\`) is for the commands to run in the terminal.
