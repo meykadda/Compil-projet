@@ -20,6 +20,7 @@
 %token <fval> FLOAT
 %token <ival> INTEGER
 %token <sval> ID MESSAGE CHAR
+%left PLUS MINUS MULT DIV
 
 %%
 
@@ -44,16 +45,32 @@ liste_var:
 
 liste_idf:
     ID VIRGULE liste_idf                                         { printf("VALID list of identifiers\n");}
-    | ID assignment                                              { printf("VALID assignment\n"); }
-    | ID LSQUARE INTEGER RSQUARE                                 { printf("VALID array\n"); }
+    |ID                                                          { printf("VALID identifier\n"); }
+    |ID assignment                                               { printf("VALID assignment\n"); }
+    |ID LSQUARE INTEGER RSQUARE                                  { printf("VALID array\n"); }
     ;
 
 assignment:
-    ASSIGN_OP FLOAT                                              { printf("VALID assignment\n"); }
-    |ASSIGN_OP INTEGER                                           { printf("VALID assignment\n"); }
+     ASSIGN_OP arithmetic_expression                                       { printf("VALID arithmetic operation assignment\n"); }
     |ASSIGN_OP CHAR                                              { printf("VALID assignment\n"); }
-    |ASSIGN_OP ID                                                { printf("VALID assignment\n"); }
-    | /* epsilon */
+    ;
+
+arithmetic_expression:
+    arithmetic_expression PLUS term                             { printf("VALID arithmetic expression\n"); }
+    | arithmetic_expression MINUS term                          { printf("VALID arithmetic expression\n"); }
+    | term
+    ;
+
+term:
+    term MULT factor                                            { printf("VALID arithmetic expression\n");}
+    | term DIV factor                                           { printf("VALID arithmetic expression\n"); }
+    | factor
+    ;
+
+factor:
+    INTEGER 
+    | FLOAT
+    | ID
     ;
 
 instruction_section:
@@ -83,12 +100,10 @@ contenu_msg:
 type:
     INTEGER_KWD                                                  { printf("VALID integer type\n"); }
     | FLOAT_KWD                                                  { printf("VALID float type\n"); }
-    | CHAR_KWD
+    | CHAR_KWD                                                   { printf("VALID char type\n"); }
     ;
 
-
 %%
-
 int main() {
     printf("Parsing starts\n");
     if (yyparse() == 0) {

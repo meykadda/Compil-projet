@@ -62,6 +62,10 @@ CONST "CONST"
                          yylval.sval[strlen(yylval.sval) - 1] = '\0';
                          return MESSAGE;
                        }
+"+"                    { printf("plus detected\n"); return PLUS;}
+"-"                    { printf("minus detected\n"); return MINUS;}
+"*"                    { printf("multiplication detected\n"); return MULT;}
+"/"                    { printf("division detected\n"); return DIV;}
 "="                    { printf("affectation operation detected: %s\n", yytext); return ASSIGN_OP; }
 ";"                    { printf("semicolon detected\n"); return SEMICOLON;}
 ","                    { printf("virgule detected\n"); return VIRGULE;}
