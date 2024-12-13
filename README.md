@@ -22,6 +22,6 @@ This project implements a simple compiler using Flex and Bison. Follow the instr
 
    ```bash
    gcc parser.tab.c lex.yy.c -o compiler   # Compile the C files into the executable
-   compiler.exe < input.txt   # Execute the compiled program with input.txt
+   compiler.exe < input.txt   # Execute the compiled program with your input.txt
 
 
