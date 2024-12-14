@@ -4,12 +4,12 @@
 #define MAX_SYMBOLS 100
 
 typedef struct {
-    int stat;        // 0: empty, 1: idf & const, 2: keywords, 3: separators
+    int stat;        // 1: idf & const, 2: keywords, 3: separators,  0: empty
     char name[50];   // Variable name
-    int scoop;       // 0: global, 1: local, Null if none 
-    int nature;      // 0: idf, 1: constant, 2 if none
-    char type[10];   // char, integer, float, Null if none
-    char val[50];    // Variable value
+    int scoop;       // 1: global, 2: local, 0: none 
+    int nature;      // 1: idf, 2: constant, 0: none
+    int type;        // 1: INTEGER, 2: FLOAT, 3: CHAR, 0: none
+    char val[50];    // Variable value, 0 if none
     int taille;      // Size of the variable (length of value)
 } Symbol;
 
@@ -18,7 +18,7 @@ Symbol symbolTable[MAX_SYMBOLS];
 void initializeSymbolTable();
 int isCompatibleType(const char *type, const char *value);
 int searchVariable(const char *name, int statCriteria);
-void addOrUpdateVariable(int stat, const char *name, int scoop, int nature, const char *type, const char *val, int taille);
+void addOrUpdateVariable(int stat, const char *name, int scoop, int nature, int type, const char *val, int taille);
 void displaySymbolTable();
 
 #endif
