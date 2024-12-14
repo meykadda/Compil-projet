@@ -21,7 +21,7 @@ This project implements a simple compiler using Flex and Bison. Follow the instr
 2. **Next, you need to compile the generated C files using gcc:**
 
    ```bash
-   gcc parser.tab.c lex.yy.c -o compiler   # Compile the C files into the executable
+   gcc parser.tab.c lex.yy.c TS.c -o compiler   # Compile the C files into the executable
    compiler.exe < input.txt   # Execute the compiled program with your input.txt
 
 
