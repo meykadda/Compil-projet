@@ -1,5 +1,4 @@
-%{
-    #include <stdio.h>
+ %{#include <stdio.h>
     #include <stdlib.h>
     /*#include "TS.h"*/
 
@@ -15,12 +14,18 @@
 
 %token VAR_GLOBAL DECLARATION INSTRUCTION
 %token FLOAT_KWD INTEGER_KWD CHAR_KWD CONST
-%token LBRACE RBRACE LPAREN RPAREN LSQUARE RSQUARE SEMICOLON VIRGULE
-%token READ WRITE ASSIGN_OP
+%token LBRACE RBRACE LPAREN RPAREN LSQUARE RSQUARE SEMICOLON VIRGULE COLON
+%token READ WRITE ASSIGN_OP FOR IF ELSE 
 %token <fval> FLOAT
 %token <ival> INTEGER
 %token <sval> ID MESSAGE CHAR
+%token AND OR NOT
+%token LE EQ NE
 %left PLUS MINUS MULT DIV
+%left OR
+%left AND
+%right NOT
+%left LE EQ NE GE GT LT  
 
 %%
 
@@ -80,9 +85,36 @@ instruction_section:
   
 instruction_liste:
     read_instruction
-    | write_instruction
+    | write_instruction        
+    | for_instruction 
+	|if_else_instruction
     | /* epsilon */
     ;
+
+for_instruction:
+    FOR LPAREN factor assignment COLON factor COLON condition RPAREN LBRACE instruction_liste RBRACE 
+    {
+        printf("VALID FOR loop with initial assignment, step, and condition\n");
+    }
+    ;
+	
+	
+if_else_instruction:
+    IF LPAREN condition RPAREN LBRACE instruction_liste RBRACE
+        { printf("VALID IF block\n"); }
+    | IF LPAREN condition RPAREN LBRACE instruction_liste RBRACE ELSE LBRACE instruction_liste RBRACE
+        { printf("VALID IF-ELSE block\n"); }
+    | IF LPAREN condition RPAREN LBRACE instruction_liste RBRACE ELSE if_else_instruction
+        { printf("VALID nested IF-ELSE block\n"); }
+    ;
+
+condition:
+    arithmetic_expression  	{ printf("VALID condition\n"); }
+	|logical_expression     { printf("VALID condition\n"); }
+	|comparison_expression   { printf("VALID condition\n"); }
+	
+    ;
+
 
 read_instruction:
     READ LPAREN ID RPAREN SEMICOLON                              { printf("VALID READ instruction\n"); }
@@ -102,6 +134,22 @@ type:
     | FLOAT_KWD                                                  { printf("VALID float type\n"); }
     | CHAR_KWD                                                   { printf("VALID char type\n"); }
     ;
+
+logical_expression:
+    factor OR factor { printf("Logical OR\n"); }
+  | factor  AND factor  { printf("Logical AND\n"); }
+  | NOT factor  { printf("Logical NOT\n"); }
+  ;
+
+comparison_expression:
+    factor LE factor { printf("<= comparison\n"); }
+  | factor EQ factor { printf("== comparison\n"); }
+  | factor NE factor { printf("!= comparison\n"); }
+  | factor GE factor { printf(">= comparison\n"); }
+  | factor GT factor { printf("> comparison\n"); }
+  | factor LT factor { printf("< comparison\n"); }
+  ;
+
 
 %%
 int main() {

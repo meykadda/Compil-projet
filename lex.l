@@ -17,6 +17,9 @@ FLOAT      ([0-9]+\.[0-9]+|\([+|-][0-9]+\.[0-9]+\))
 CHAR       ([a-zA-Z])
 MESSAGE    \"[^\"]*\"
 CONST "CONST"
+FOR        "FOR"
+IF         "IF"           
+ELSE       "ELSE"
 
 %%
 [ \t\r]+               { /* Ignore whitespace */ }
@@ -36,6 +39,11 @@ CONST "CONST"
 "]"                    { printf("right bracket detected\n"); return RSQUARE; } 
 "("                    { printf("left parenthesis detected\n"); return LPAREN; }
 ")"                    { printf("right parenthesis detected\n"); return RPAREN; } 
+":"                    { printf("colon detected\n"); return COLON; }
+"FOR"                  { printf("FOR loop detected\n"); return FOR; }
+"IF"                   { printf("IF detected\n"); return IF; }
+"ELSE"                 { printf("ELSE detected\n"); return ELSE; }
+
 {ID}                   { 
                             if(strlen(yytext) > 8) {
                                 printf("Error: identifier too long: %s\n", yytext);
@@ -69,6 +77,16 @@ CONST "CONST"
 "="                    { printf("affectation operation detected: %s\n", yytext); return ASSIGN_OP; }
 ";"                    { printf("semicolon detected\n"); return SEMICOLON;}
 ","                    { printf("virgule detected\n"); return VIRGULE;}
+"&&"                   { printf("and operator detected\n"); return AND; }
+"||"                   { printf("or operator detected\n"); return OR; }
+"!"                    { printf("not operator detected\n"); return NOT; }
+"=="                   { printf("equal operator detected\n"); return EQ; }
+"!="                   { printf("not equal operator detected\n"); return NE; }
+"<="                   { printf("lower or equal operator detected\n"); return LE; } 
+">="                   { printf("greater or equal operator detected\n"); return GE; }
+">"                    { printf("greater than operator detected\n"); return GT; }
+"<"                    { printf("less than operator detected\n"); return LT; }
+
 .                      { printf("Unknown character: %s\n", yytext); }
 [\n]                   { /* Ignore new line */ }
 %%
